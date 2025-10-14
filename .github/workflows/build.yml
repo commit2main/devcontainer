@@ -1,4 +1,4 @@
-name: 'build' 
+name: "build"
 on:
   push:
     branches:
@@ -6,7 +6,11 @@ on:
 
 jobs:
   build:
+    name: Build and push Dev Container image
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       - uses: actions/checkout@v5
 
