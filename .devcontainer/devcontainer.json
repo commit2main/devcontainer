@@ -15,7 +15,7 @@
     "ghcr.io/devcontainers-extra/features/apt-get-packages:1": {
       "clean_ppas": true,
       "preserve_apt_list": true,
-      "packages": "build-essential,cmake,cppcheck,valgrind,clang,clang-format,lldb,llvm,gdb"
+      "packages": "build-essential,cmake,cppcheck,valgrind,clang,clang-format,lldb,llvm,gdb,meson,ninja-build"
     },
     // JavaScript/TypeScript
     "ghcr.io/devcontainers/features/node:1": {
