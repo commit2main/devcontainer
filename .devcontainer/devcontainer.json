@@ -4,7 +4,7 @@
   "features": {
     // Python
     "ghcr.io/devcontainers/features/python:1": {
-      "version": "latest",
+      "version": "3.13",
       "installTools": false
     },
     // C/C++
@@ -55,7 +55,5 @@
         "python.analysis.typeCheckingMode": "standard"
       }
     }
-  },
-  "remoteUser": "user",
-  "containerUser": "user"
+  }
 }
