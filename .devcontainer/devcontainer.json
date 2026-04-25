@@ -33,13 +33,12 @@
     // Developer Tooling
     "ghcr.io/devcontainers/features/github-cli:1": {},
     "ghcr.io/devcontainers-extra/features/pre-commit:2": {},
-    "ghcr.io/devcontainers-extra/features/ruff:2": {},
+    "ghcr.io/devcontainers-extra/features/ruff:1": {},
     "ghcr.io/devcontainers-extra/features/uv:1": {}
   },
   "customizations": {
     "vscode": {
       "extensions": [
-        "charliermarsh.ruff",
         "esbenp.prettier-vscode",
         "ms-vscode.cpptools"
       ],
