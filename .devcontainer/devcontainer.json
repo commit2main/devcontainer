@@ -1,38 +1,41 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the
-// README at: https://github.com/devcontainers/templates/tree/main/src/debian
 {
-  "name": "10x Slackers Universal",
-  // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+  "name": "Universal Dev Container",
   "image": "mcr.microsoft.com/devcontainers/base:trixie",
-  // Features to add to the dev container. More info: https://containers.dev/features.
   "features": {
     // Python
     "ghcr.io/devcontainers/features/python:1": {
-      "version": "3.13",
+      "version": "latest",
       "installTools": false
     },
     // C/C++
     "ghcr.io/devcontainers-extra/features/apt-get-packages:1": {
       "clean_ppas": true,
-      "preserve_apt_list": true,
+      "preserve_apt_list": false,
       "packages": "build-essential,cmake,cppcheck,valgrind,clang,clang-format,lldb,llvm,gdb,meson,ninja-build"
     },
     // JavaScript/TypeScript
     "ghcr.io/devcontainers/features/node:1": {
       "version": "lts"
     },
+    // Go
+    "ghcr.io/devcontainers/features/go:1": {
+      "version": "latest"
+    },
+    // Rust
+    "ghcr.io/devcontainers/features/rust:1": {
+      "version": "latest"
+    },
+    // Java
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "21",
+      "jdkDistro": "tem"
+    },
     // Developer Tooling
-    "ghcr.io/devcontainers-extra/features/pre-commit:2": {
-      "version": "latest"
-    },
-    "ghcr.io/devcontainers-extra/features/ruff:1": {
-      "version": "latest"
-    },
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers-extra/features/pre-commit:2": {},
+    "ghcr.io/devcontainers-extra/features/ruff:2": {},
     "ghcr.io/devcontainers-extra/features/uv:1": {}
   },
-  // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  // "forwardPorts": [],
-  // Configure tool-specific properties.
   "customizations": {
     "vscode": {
       "extensions": [
@@ -49,10 +52,10 @@
         },
         "editor.defaultFormatter": "esbenp.prettier-vscode",
         "editor.formatOnSave": true,
-        "python.analysis.typeCheckingMode": "strict"
+        "python.analysis.typeCheckingMode": "standard"
       }
     }
-  }
-  // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-  // "remoteUser": "root"
+  },
+  "remoteUser": "user",
+  "containerUser": "user"
 }

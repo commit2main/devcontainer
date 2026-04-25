@@ -1,33 +1,33 @@
-# 10x Slackers Universal Dev Container Image
+# Universal Dev Container Image
+
+Customized dev container with language runtimes and tooling pre-installed.
 
 ## Supported languages and tooling
 
-- Python (3.13)
-  - Ruff
-- Node (LTS)
+- Base image: `mcr.microsoft.com/devcontainers/base:trixie`
+- Python (latest)
+  - Ruff, uv
+- Node.js (LTS)
   - npm, yarn, pnpm
 - C/C++ (Debian Trixie)
-  - gcc, clang, llvm, cmake, cppcheck, valgrind, gdb
-- Pre-Commit
+  - build-essential, cmake, cppcheck, valgrind, clang, clang-format, lldb, llvm, gdb, meson, ninja-build
+- Go (latest)
+- Rust (latest)
+- Java (Temurin JDK 21)
+- Developer tooling
+  - GitHub CLI, pre-commit
 
 ## Usage
 
 Create a `.devcontainer/devcontainer.json` file with the following contents:
 
 ```json
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the
-// README at: https://github.com/devcontainers/templates/tree/main/src/debian
 {
   "name": "project_title",
-  // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
   "image": "ghcr.io/commit2main/universal:latest"
-  // Features to add to the dev container. More info: https://containers.dev/features.
   // "features": {}
-  // Use 'forwardPorts' to make a list of ports inside the container available locally.
   // "forwardPorts": []
-  // Configure tool-specific properties.
   // "customizations": {}
-  // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
   // "remoteUser": "root"
 }
 ```
