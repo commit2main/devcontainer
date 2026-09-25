@@ -4,17 +4,11 @@
   "features": {
     // Python
     "ghcr.io/devcontainers/features/python:1": {
-      "version": "3.13",
+      "version": "3.14",
       "installTools": false
     },
-    // C/C++
-    "ghcr.io/devcontainers-extra/features/apt-get-packages:1": {
-      "clean_ppas": true,
-      "preserve_apt_list": false,
-      "packages": "build-essential,cmake,cppcheck,valgrind,clang,clang-format,lldb,llvm,gdb,meson,ninja-build"
-    },
     // JavaScript/TypeScript
-    "ghcr.io/devcontainers/features/node:1": {
+    "ghcr.io/devcontainers/features/node:2": {
       "version": "lts"
     },
     // Go
@@ -23,37 +17,39 @@
     },
     // Rust
     "ghcr.io/devcontainers/features/rust:1": {
-      "version": "latest"
+      "version": "latest",
+      "profile": "default"
     },
     // Java
     "ghcr.io/devcontainers/features/java:1": {
       "version": "21",
       "jdkDistro": "tem"
     },
+    // C/C++
+    "ghcr.io/devcontainers-extra/features/apt-get-packages:1": {
+      "packages": "build-essential,cmake,cppcheck,valgrind,clang,clang-format,lldb,llvm,gdb,meson,ninja-build"
+    },
     // Developer Tooling
     "ghcr.io/devcontainers/features/github-cli:1": {},
     "ghcr.io/devcontainers-extra/features/uv:1": {},
     "ghcr.io/devcontainers-extra/features/pre-commit:2": {},
-    "ghcr.io/devcontainers-extra/features/ruff:1": {}
+    "ghcr.io/devcontainers-extra/features/ruff:2": {}
   },
   "overrideFeatureInstallOrder": [
     "ghcr.io/devcontainers-extra/features/apt-get-packages:1",
-    "ghcr.io/devcontainers/features/go:1",
-    "ghcr.io/devcontainers/features/java:1",
-    "ghcr.io/devcontainers/features/node:1",
     "ghcr.io/devcontainers/features/python:1",
+    "ghcr.io/devcontainers/features/java:1",
+    "ghcr.io/devcontainers/features/node:2",
+    "ghcr.io/devcontainers/features/go:1",
     "ghcr.io/devcontainers/features/rust:1",
     "ghcr.io/devcontainers/features/github-cli:1",
     "ghcr.io/devcontainers-extra/features/uv:1",
-    "ghcr.io/devcontainers-extra/features/pre-commit:2",
-    "ghcr.io/devcontainers-extra/features/ruff:1"
+    "ghcr.io/devcontainers-extra/features/ruff:2",
+    "ghcr.io/devcontainers-extra/features/pre-commit:2"
   ],
   "customizations": {
     "vscode": {
-      "extensions": [
-        "esbenp.prettier-vscode",
-        "ms-vscode.cpptools"
-      ],
+      "extensions": ["esbenp.prettier-vscode", "ms-vscode.cpptools"],
       "settings": {
         "[c]": {
           "editor.defaultFormatter": "ms-vscode.cpptools"
