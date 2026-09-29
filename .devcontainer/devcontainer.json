@@ -29,6 +29,7 @@
     "./features/cpp": {},
     // Developer Tooling
     "ghcr.io/devcontainers/features/github-cli:1": {},
+    "./features/opencode": {},
     "./features/uv": {},
     "./features/pre-commit": {},
     "./features/ruff": {}
@@ -41,6 +42,7 @@
     "ghcr.io/devcontainers/features/go:1",
     "ghcr.io/devcontainers/features/rust:1",
     "ghcr.io/devcontainers/features/github-cli:1",
+    "./features/opencode",
     "./features/uv",
     "./features/ruff",
     "./features/pre-commit"

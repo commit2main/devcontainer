@@ -18,7 +18,7 @@ Customized dev container with language runtimes and tooling pre-installed.
 - Java (Temurin JDK 21)
   - SDKMAN! (Maven and Gradle are not enabled)
 - Developer tooling
-  - GitHub CLI, [pre-commit](.devcontainer/features/pre-commit/)
+  - GitHub CLI, [pre-commit](.devcontainer/features/pre-commit/), [OpenCode V2](.devcontainer/features/opencode/)
 
 ## Usage
 

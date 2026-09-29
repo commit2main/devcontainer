@@ -1,0 +1,14 @@
+{
+  "id": "opencode",
+  "version": "1.0.0",
+  "name": "OpenCode V2",
+  "description": "Install the OpenCode V2 CLI using npm.",
+  "options": {
+    "version": {
+      "type": "string",
+      "default": "latest",
+      "description": "OpenCode V2 version (2.x.y), or latest V2."
+    }
+  },
+  "installsAfter": ["ghcr.io/devcontainers/features/node"]
+}
