@@ -19,6 +19,7 @@ Customized dev container with language runtimes and tooling pre-installed.
   - SDKMAN! (Maven and Gradle are not enabled)
 - Developer tooling
   - GitHub CLI, [pre-commit](.devcontainer/features/pre-commit/), [OpenCode V2](.devcontainer/features/opencode/)
+  - Updates: [build workflow](.github/workflows/build.yml), [Dependabot](.github/dependabot.yml)
 
 ## Usage
 

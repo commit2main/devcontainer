@@ -5,6 +5,7 @@ on:
     - cron: '0 0 * * 0'
   push:
     branches: [main]
+  pull_request:
 
 jobs:
   build:
@@ -19,6 +20,7 @@ jobs:
           persist-credentials: false
 
       - name: Login to GitHub Container Registry
+        if: github.event_name != 'pull_request'
         uses: docker/login-action@v4
         with:
           registry: ghcr.io
@@ -30,4 +32,6 @@ jobs:
         with:
           imageName: ghcr.io/${{ github.repository_owner }}/universal
           cacheFrom: ghcr.io/${{ github.repository_owner }}/universal
-          push: always
+          noCache: ${{ github.event_name == 'schedule' }}
+          runCmd: uv --version && uvx --version && ruff --version && pre-commit --version && opencode --version && clang-format --version
+          push: ${{ github.event_name == 'pull_request' && 'never' || 'always' }}
