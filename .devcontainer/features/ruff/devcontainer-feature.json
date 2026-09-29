@@ -1,0 +1,23 @@
+{
+  "id": "ruff",
+  "version": "1.0.0",
+  "name": "Ruff",
+  "description": "Install a verified Ruff release binary for Linux.",
+  "options": {
+    "version": {
+      "type": "string",
+      "default": "latest",
+      "description": "Ruff release version, or latest."
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": ["charliermarsh.ruff"],
+      "settings": {
+        "[python]": {
+          "editor.defaultFormatter": "charliermarsh.ruff"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "id": "pre-commit",
+  "version": "1.0.0",
+  "name": "pre-commit",
+  "description": "Install pre-commit as an isolated uv tool.",
+  "options": {
+    "version": {
+      "type": "string",
+      "default": "latest",
+      "description": "pre-commit package version, or latest."
+    }
+  },
+  "installsAfter": ["./features/uv", "ghcr.io/devcontainers/features/python"]
+}

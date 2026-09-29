@@ -1,0 +1,16 @@
+{
+  "id": "cpp",
+  "version": "1.0.0",
+  "name": "C/C++ development tools",
+  "description": "Install compilers, build systems, debuggers, and analysis tools on Debian.",
+  "customizations": {
+    "vscode": {
+      "extensions": ["ms-vscode.cpptools"],
+      "settings": {
+        "[c]": {
+          "editor.defaultFormatter": "ms-vscode.cpptools"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "uv",
+  "version": "1.0.0",
+  "name": "uv and uvx",
+  "description": "Install verified uv release binaries for Linux.",
+  "options": {
+    "version": {
+      "type": "string",
+      "default": "latest",
+      "description": "uv release version, or latest."
+    }
+  }
+}

@@ -6,11 +6,11 @@ Customized dev container with language runtimes and tooling pre-installed.
 
 - Base image: `mcr.microsoft.com/devcontainers/base:trixie`
 - Python 3.14
-  - pip, pipx, uv, Ruff
+  - pip, pipx, [uv](.devcontainer/features/uv/), [Ruff](.devcontainer/features/ruff/)
 - Node.js (LTS)
   - npm, yarn, pnpm, nvm
 - C/C++ (Debian Trixie)
-  - build-essential, cmake, cppcheck, valgrind, clang, clang-format, lldb, llvm, gdb, meson, ninja-build
+  - [C/C++ tools](.devcontainer/features/cpp/): build-essential, cmake, cppcheck, valgrind, clang, clang-format, lldb, llvm, gdb, meson, ninja-build
 - Go (latest)
   - gopls, staticcheck, golint, revive, Delve (dlv), golangci-lint, gomodifytags, goplay, gotests, impl
 - Rust (latest)
@@ -18,7 +18,7 @@ Customized dev container with language runtimes and tooling pre-installed.
 - Java (Temurin JDK 21)
   - SDKMAN! (Maven and Gradle are not enabled)
 - Developer tooling
-  - GitHub CLI, pre-commit
+  - GitHub CLI, [pre-commit](.devcontainer/features/pre-commit/)
 
 ## Usage
 
