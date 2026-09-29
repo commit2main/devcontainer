@@ -1,0 +1,32 @@
+name: Publish OpenCode Feature
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .devcontainer/features/opencode/**
+      - .github/workflows/publish-opencode.yml
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Stage OpenCode Feature
+        run: |
+          mkdir -p publish-features
+          cp -R .devcontainer/features/opencode publish-features/opencode
+
+      - name: Publish to GHCR
+        uses: devcontainers/action@v1
+        with:
+          publish-features: "true"
+          base-path-to-features: "./publish-features"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

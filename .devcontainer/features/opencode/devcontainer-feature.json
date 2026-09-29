@@ -1,14 +1,13 @@
 {
   "id": "opencode",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "name": "OpenCode V2",
-  "description": "Install the OpenCode V2 CLI using npm.",
+  "description": "Install the standalone OpenCode V2 CLI on Debian-based Linux.",
   "options": {
     "version": {
       "type": "string",
       "default": "latest",
       "description": "OpenCode V2 version (2.x.y), or latest V2."
     }
-  },
-  "installsAfter": ["ghcr.io/devcontainers/features/node"]
+  }
 }
