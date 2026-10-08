@@ -33,5 +33,5 @@ jobs:
           imageName: ghcr.io/${{ github.repository_owner }}/universal
           cacheFrom: ghcr.io/${{ github.repository_owner }}/universal
           noCache: ${{ github.event_name == 'schedule' }}
-          runCmd: uv --version && uvx --version && ruff --version && pre-commit --version && opencode --version && clang-format --version
+          runCmd: uv --version && uvx --version && ruff --version && pre-commit --version && opencode --version && claude --version && clang-format --version
           push: ${{ github.event_name == 'pull_request' && 'never' || 'always' }}

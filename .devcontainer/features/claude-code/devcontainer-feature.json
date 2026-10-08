@@ -1,0 +1,13 @@
+{
+  "id": "claude-code",
+  "version": "1.0.0",
+  "name": "Claude Code",
+  "description": "Install the standalone Claude Code CLI on Debian-based Linux.",
+  "options": {
+    "version": {
+      "type": "string",
+      "default": "latest",
+      "description": "Claude Code version (x.y.z), latest, or stable."
+    }
+  }
+}

@@ -1,0 +1,32 @@
+name: Publish Claude Code Feature
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .devcontainer/features/claude-code/**
+      - .github/workflows/publish-claude-code.yml
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Stage Claude Code Feature
+        run: |
+          mkdir -p publish-features
+          cp -R .devcontainer/features/claude-code publish-features/claude-code
+
+      - name: Publish to GHCR
+        uses: devcontainers/action@v1
+        with:
+          publish-features: "true"
+          base-path-to-features: "./publish-features"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
