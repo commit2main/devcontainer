@@ -1,0 +1,14 @@
+{
+  "id": "opencode-credentials",
+  "version": "1.0.0",
+  "name": "OpenCode Credentials",
+  "description": "Sync OpenCode V2 credentials with the host through a shared store, keeping each container's database private.",
+  "mounts": [
+    {
+      "source": "opencode-credentials",
+      "target": "/mnt/opencode-credentials",
+      "type": "volume"
+    }
+  ],
+  "postStartCommand": "opencode-credentials-sync --start"
+}
