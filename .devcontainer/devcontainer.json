@@ -35,23 +35,12 @@
     "./features/pre-commit": {},
     "./features/ruff": {}
   },
-  "overrideFeatureInstallOrder": [
-    "./features/cpp",
-    "ghcr.io/devcontainers/features/python:1",
-    "ghcr.io/devcontainers/features/java:1",
-    "ghcr.io/devcontainers/features/node:2",
-    "ghcr.io/devcontainers/features/go:1",
-    "ghcr.io/devcontainers/features/rust:1",
-    "ghcr.io/devcontainers/features/github-cli:1",
-    "./features/opencode",
-    "./features/claude-code",
-    "./features/uv",
-    "./features/ruff",
-    "./features/pre-commit"
-  ],
   "customizations": {
     "vscode": {
-      "extensions": ["esbenp.prettier-vscode", "DavidAnson.vscode-markdownlint"],
+      "extensions": [
+        "esbenp.prettier-vscode",
+        "DavidAnson.vscode-markdownlint"
+      ],
       "settings": {
         "editor.defaultFormatter": "esbenp.prettier-vscode",
         "editor.formatOnSave": true,
