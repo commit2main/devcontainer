@@ -1,0 +1,17 @@
+{
+  "id": "claude-credentials",
+  "version": "1.0.0",
+  "name": "Claude Credentials",
+  "description": "Share the host's Claude Code config directory (credentials included) through a bind-backed volume.",
+  "mounts": [
+    {
+      "source": "claude-credentials",
+      "target": "/mnt/claude-credentials",
+      "type": "volume"
+    }
+  ],
+  "containerEnv": {
+    "CLAUDE_CONFIG_DIR": "/mnt/claude-credentials"
+  },
+  "postStartCommand": "claude-credentials-check"
+}
