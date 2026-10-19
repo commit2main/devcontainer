@@ -1,0 +1,13 @@
+{
+  "id": "omp",
+  "version": "1.0.0",
+  "name": "oh-my-pi",
+  "description": "Install the standalone omp CLI on Debian/Ubuntu without a language runtime dependency.",
+  "options": {
+    "version": {
+      "type": "string",
+      "default": "latest",
+      "description": "oh-my-pi version: latest stable or an exact x.y.z release."
+    }
+  }
+}

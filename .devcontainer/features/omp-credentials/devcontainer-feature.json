@@ -1,0 +1,17 @@
+{
+  "id": "omp-credentials",
+  "version": "1.0.0",
+  "name": "oh-my-pi Credentials and State",
+  "description": "Share the host's entire ordinary oh-my-pi agent directory, including credentials, settings and sessions, through a bind-backed volume.",
+  "mounts": [
+    {
+      "source": "omp-credentials",
+      "target": "/mnt/omp-agent",
+      "type": "volume"
+    }
+  ],
+  "containerEnv": {
+    "PI_CODING_AGENT_DIR": "/mnt/omp-agent"
+  },
+  "postStartCommand": "omp-credentials-check"
+}

@@ -18,8 +18,8 @@ Customized dev container with language runtimes and tooling pre-installed.
 - Java (Temurin JDK 21)
   - SDKMAN! (Maven and Gradle are not enabled)
 - Developer tooling
-  - GitHub CLI, [pre-commit](.devcontainer/features/pre-commit/), [OpenCode V2](.devcontainer/features/opencode/), [Claude Code](.devcontainer/features/claude-code/)
-  - Updates: [build](.github/workflows/build.yml) and publish workflows ([OpenCode](.github/workflows/publish-opencode.yml), [Claude Code](.github/workflows/publish-claude-code.yml), [Claude Credentials](.github/workflows/publish-claude-credentials.yml), [OpenCode Credentials](.github/workflows/publish-opencode-credentials.yml)), [Dependabot](.github/dependabot.yml)
+  - GitHub CLI, [pre-commit](.devcontainer/features/pre-commit/), [oh-my-pi (omp)](.devcontainer/features/omp/), [Claude Code](.devcontainer/features/claude-code/)
+  - Updates: [build](.github/workflows/build.yml) and publish workflows ([oh-my-pi](.github/workflows/publish-omp.yml), [Claude Code](.github/workflows/publish-claude-code.yml), [Claude Credentials](.github/workflows/publish-claude-credentials.yml), [oh-my-pi Credentials](.github/workflows/publish-omp-credentials.yml)), [Dependabot](.github/dependabot.yml)
 
 ## Usage
 
@@ -38,7 +38,7 @@ Create `.devcontainer/devcontainer.json`:
 }
 ```
 
-### Claude Code and OpenCode features
+### Claude Code and oh-my-pi features
 
 To add only the CLIs to an existing Debian/Ubuntu dev container (x86_64 or ARM64):
 
@@ -46,14 +46,15 @@ To add only the CLIs to an existing Debian/Ubuntu dev container (x86_64 or ARM64
 {
   "features": {
     "ghcr.io/commit2main/devcontainer/claude-code:1": {},
-    "ghcr.io/commit2main/devcontainer/opencode:1": {}
+    "ghcr.io/commit2main/devcontainer/omp:1": {}
   }
 }
 ```
 
 Both install a checksum-verified standalone binary and take a `version` option:
-`latest` (default), `stable` or `x.y.z` for Claude Code; `latest` or `2.x.y` for
-OpenCode. Credentials are never baked into the image.
+`latest` (default), `stable` or `x.y.z` for Claude Code; `latest` (stable) or
+exact `x.y.z` for [oh-my-pi](https://github.com/can1357/oh-my-pi). omp does not
+require Node or Bun. Credentials are never baked into the image.
 
 ### Shared Claude credentials
 
@@ -91,46 +92,87 @@ Notes:
 - `claude-credentials-check` runs on each start and warns, without failing the
   container, if the volume is not bind-backed, not writable or has no credentials.
 
-### Shared OpenCode credentials
+### Shared oh-my-pi credentials and state
 
-The [`opencode-credentials`](.devcontainer/features/opencode-credentials/)
-feature keeps OpenCode V2 logins in sync between the host and every dev
-container. Each side keeps its own `opencode.db`, so sessions stay separate;
-only the output of `opencode auth export` is exchanged, through a `0600` file in
-a host directory. It is not part of the universal image.
+The [`omp-credentials`](.devcontainer/features/omp-credentials/) feature shares
+the host's **whole active agent directory** with trusted devcontainers:
+`agent.db` credentials (including SQLite sidecars), `config.yml`, `models.yml`,
+sessions and their artifacts. It is opt-in, independent of the CLI feature,
+and not part of the universal image. Containers can read and write host secrets.
+There is no copying, sync daemon, credential conversion or background service.
 
-1. Run the host setup once from a clone of this repository (pass `podman` if
-   that is your engine). It creates the store in
-   `~/.local/share/opencode-credentials`, the `opencode-credentials` volume
-   bound to it, and a systemd user service that syncs the host's OpenCode:
+**Before setup:** host omp must use the same ordinary agent directory as the
+volume source: `${PI_CODING_AGENT_DIR:-$HOME/.omp/agent}`. Named profiles ignore
+this override and are not shared by this feature. If you migrated to split XDG
+data/state/cache directories, deliberately consolidate your existing state and
+configure host `PI_CODING_AGENT_DIR` first; do not create a second empty store or
+overwrite/merge databases blindly. Root-level plugins, profiles and daemon
+sockets outside the agent directory are not shared.
+
+1. Create the source directory, then a bind-backed volume once per host:
 
    ```bash
-   .devcontainer/features/opencode-credentials/host-setup.sh docker
+   agent_dir="${PI_CODING_AGENT_DIR:-$HOME/.omp/agent}"
+   mkdir -p -m 0700 "$agent_dir"
+   docker volume create --driver local --opt type=none --opt o=bind \
+     --opt device="$(realpath "$agent_dir")" omp-credentials
    ```
 
-2. Enable the feature for all dev containers in your VS Code user settings:
+   With rootless Podman, use the same source:
+
+   ```bash
+   agent_dir="${PI_CODING_AGENT_DIR:-$HOME/.omp/agent}"
+   mkdir -p -m 0700 "$agent_dir"
+   podman volume create --driver local --opt type=none --opt o=bind \
+     --opt device="$(realpath "$agent_dir")" omp-credentials
+   ```
+
+   These commands do not change existing directory modes. If `omp-credentials`
+   already exists, inspect it (`docker volume inspect omp-credentials` or
+   `podman volume inspect omp-credentials`) and check its source. A wrong-source
+   or ordinary named volume does not share host state. Detach existing consumers
+   and preserve their data before manually removing/recreating that volume with
+   the intended source; volume creation does not repair an existing volume.
+
+2. Enable sharing for all devcontainers in VS Code user settings:
 
    ```json
    {
      "dev.containers.defaultFeatures": {
-       "ghcr.io/commit2main/devcontainer/opencode-credentials:1": {}
+       "ghcr.io/commit2main/devcontainer/omp-credentials:1": {}
      }
    }
    ```
 
-3. Reopen in Container as usual; existing containers need a rebuild.
+   Or add that feature to one project's `features` object. Install the omp CLI
+   feature separately when the image does not already include it.
 
-Notes:
+3. Rebuild existing containers. The feature mounts the volume at `/mnt/omp-agent`
+   and sets `PI_CODING_AGENT_DIR` there, independent of user names and HOME.
+   Run `omp` and `/login` once on either side using this same agent directory.
 
-- `opencode-credentials-sync` runs on each start and then every 30 seconds
-  (`OPENCODE_CREDENTIALS_INTERVAL`) when either side changed. It never fails the
-  container and does nothing if OpenCode is not installed.
-- Logins and logouts propagate everywhere. A refreshed OAuth token replaces
-  older copies: the copy that expires later wins. The last remaining credential
-  is never removed automatically.
-- A token refreshed on one machine reaches the others within one interval. Two
-  machines refreshing the same token inside that window can still invalidate
-  each other; log in again if that happens.
-- The same user-mapping requirement as for the Claude feature applies; host
-  files are never chowned or chmodded, and secrets never appear in arguments or
-  logs.
+Access and handoff:
+
+- Keep Docker's `updateRemoteUserUID` enabled or use rootless Podman
+  `--userns=keep-id`. The feature never chowns/chmods host files.
+- On SELinux-enforcing Podman hosts, if policy denies this trusted host-state
+  mount, explicitly opt in **per devcontainer**:
+
+  ```json
+  {
+    "runArgs": ["--userns=keep-id", "--security-opt=label=disable"]
+  }
+  ```
+
+  This disables SELinux label separation for that container. Do not apply it
+  globally or automatically relabel your real host state.
+- `omp-credentials-check` warns without blocking startup about environment,
+  mount or access problems. Missing `agent.db` is a normal first-use notice;
+  database presence alone does not prove a valid login.
+- Use sequential handoff: do not concurrently resume/edit the same session on
+  host and container, or run GC while another environment uses the store.
+  Session locking across container namespaces is not guaranteed.
+- Different workspace paths produce different session buckets. Explicitly
+  resume the shared transcript when handing off across paths; sharing files
+  does not imply automatic session selection.
+

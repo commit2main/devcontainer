@@ -29,7 +29,7 @@
     "./features/cpp": {},
     // Developer Tooling
     "ghcr.io/devcontainers/features/github-cli:1": {},
-    "./features/opencode": {},
+    "./features/omp": {},
     "./features/claude-code": {},
     "./features/uv": {},
     "./features/pre-commit": {},
