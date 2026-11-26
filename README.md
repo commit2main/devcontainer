@@ -1,6 +1,7 @@
 # Universal Dev Container Image
 
-Customized dev container with language runtimes and tooling pre-installed.
+Customized dev container with language runtimes and tooling pre-installed, built
+for `linux/amd64` and `linux/arm64` (Apple Silicon runs it natively).
 
 ## Supported languages and tooling
 
@@ -14,12 +15,12 @@ Customized dev container with language runtimes and tooling pre-installed.
 - Go (latest)
   - gopls, staticcheck, golint, revive, Delve (dlv), golangci-lint, gomodifytags, goplay, gotests, impl
 - Rust (latest)
-  - Cargo, rustup, rust-analyzer, rust-src, rustfmt, Clippy
-- Java (Temurin JDK 21)
+  - Cargo, rustup, rust-analyzer, rust-src, rustfmt, Clippy (minimal profile: no offline docs)
+- Java (Temurin JDK 25)
   - SDKMAN! (Maven and Gradle are not enabled)
 - Developer tooling
-  - GitHub CLI, [pre-commit](.devcontainer/features/pre-commit/), [oh-my-pi (omp)](.devcontainer/features/omp/), [Claude Code](.devcontainer/features/claude-code/)
-  - Updates: [build](.github/workflows/build.yml) and publish workflows ([oh-my-pi](.github/workflows/publish-omp.yml), [Claude Code](.github/workflows/publish-claude-code.yml), [Claude Credentials](.github/workflows/publish-claude-credentials.yml), [oh-my-pi Credentials](.github/workflows/publish-omp-credentials.yml)), [Dependabot](.github/dependabot.yml)
+  - GitHub CLI, [just](.devcontainer/features/just/), [pre-commit](.devcontainer/features/pre-commit/), [oh-my-pi (omp)](.devcontainer/features/omp/), [Claude Code](.devcontainer/features/claude-code/)
+  - Updates: the [build](.github/workflows/build.yml) workflow rebuilds the image weekly and on every change, [Publish Features](.github/workflows/publish-features.yml) publishes the standalone Features, and [Renovate](renovate.json) opens update PRs
 
 ## Usage
 
@@ -37,6 +38,12 @@ Create `.devcontainer/devcontainer.json`:
   // "remoteUser": "root"
 }
 ```
+
+Every build is also tagged with its UTC date, for example
+`ghcr.io/commit2main/universal:2026.11.26`. Use a date tag instead of `latest`
+to pin a project to one build; Renovate can then bump it. Builds carry signed
+provenance, which you can check with
+`gh attestation verify oci://ghcr.io/commit2main/universal:latest -o commit2main`.
 
 ### Claude Code and oh-my-pi features
 

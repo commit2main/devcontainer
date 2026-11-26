@@ -9,7 +9,9 @@ fi
 
 version="${VERSION:-latest}"
 if [[ "$version" == latest ]]; then
-    version="$(curl -fsSL --retry 3 https://api.github.com/repos/astral-sh/uv/releases/latest | python3 -c 'import json,sys; print(json.load(sys.stdin)["tag_name"])')"
+    # The latest-release URL redirects to .../tag/<version>; this avoids the rate-limited GitHub API.
+    version="$(curl -fsSLI --retry 3 -o /dev/null -w '%{url_effective}' https://github.com/astral-sh/uv/releases/latest)"
+    version="${version##*/}"
 fi
 if [[ ! "$version" =~ ^v?[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
     echo "Invalid uv release tag: $version" >&2

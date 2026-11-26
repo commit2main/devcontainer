@@ -1,6 +1,12 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended"
+  "extends": ["config:recommended", "helpers:pinGitHubActionDigests"],
+  "packageRules": [
+    {
+      "description": "Hold Python at 3.14 until 3.15 wheels are widespread; revisit early 2027",
+      "matchManagers": ["devcontainer"],
+      "matchPackageNames": ["python"],
+      "allowedVersions": "<3.15"
+    }
   ]
 }

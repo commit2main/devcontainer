@@ -18,11 +18,11 @@
     // Rust
     "ghcr.io/devcontainers/features/rust:1": {
       "version": "latest",
-      "profile": "default"
+      "profile": "minimal"
     },
     // Java
     "ghcr.io/devcontainers/features/java:1": {
-      "version": "21",
+      "version": "25",
       "jdkDistro": "tem"
     },
     // C/C++
@@ -33,7 +33,8 @@
     "./features/claude-code": {},
     "./features/uv": {},
     "./features/pre-commit": {},
-    "./features/ruff": {}
+    "./features/ruff": {},
+    "./features/just": {}
   },
   "customizations": {
     "vscode": {

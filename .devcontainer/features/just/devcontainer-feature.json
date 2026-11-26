@@ -1,0 +1,18 @@
+{
+  "id": "just",
+  "version": "1.0.0",
+  "name": "just",
+  "description": "Install a verified just command runner release binary for Linux.",
+  "options": {
+    "version": {
+      "type": "string",
+      "default": "latest",
+      "description": "just release version, or latest."
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": ["nefrob.vscode-just-syntax"]
+    }
+  }
+}
