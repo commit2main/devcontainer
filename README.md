@@ -19,7 +19,7 @@ for `linux/amd64` and `linux/arm64` (Apple Silicon runs it natively).
 - Java (Temurin JDK 25)
   - SDKMAN! (Maven and Gradle are not enabled)
 - Developer tooling
-  - GitHub CLI, [pre-commit](.devcontainer/features/pre-commit/), [oh-my-pi (omp)](.devcontainer/features/omp/), [Claude Code](.devcontainer/features/claude-code/)
+  - GitHub CLI, [just](.devcontainer/features/just/), [pre-commit](.devcontainer/features/pre-commit/), [oh-my-pi (omp)](.devcontainer/features/omp/), [Claude Code](.devcontainer/features/claude-code/)
   - Updates: the [build](.github/workflows/build.yml) workflow rebuilds the image weekly and on every change, [Publish Features](.github/workflows/publish-features.yml) publishes the standalone Features, and [Renovate](renovate.json) opens update PRs
 
 ## Usage

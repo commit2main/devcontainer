@@ -71,7 +71,7 @@ jobs:
           runCmd: >-
             python3 --version && node --version && pnpm --version && go version && cargo --version
             && java -version && gh --version && uv --version && ruff --version && pre-commit --version
-            && clang-format --version && omp --version && claude --version
+            && clang-format --version && just --version && omp --version && claude --version
           push: ${{ github.event_name == 'pull_request' && 'never' || 'always' }}
 
   merge:
